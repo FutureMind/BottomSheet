@@ -19,7 +19,7 @@ public struct BottomSheet<HContent: View, MContent: View, V: View>: View {
     private let switchablePositions: [BottomSheetPosition]
     
     // Configuration
-    internal let configuration: BottomSheetConfiguration = BottomSheetConfiguration()
+    internal let configuration = BottomSheetConfiguration()
     
     public var body: some View {
         // ZStack for creating the overlay on the original view
@@ -63,7 +63,7 @@ public struct BottomSheet<HContent: View, MContent: View, V: View>: View {
             bottomSheetPosition: bottomSheetPosition,
             switchablePositions: switchablePositions,
             headerContent: {
-                if let title = title {
+                if let title {
                     return Text(title)
                         .font(.title)
                         .bold()

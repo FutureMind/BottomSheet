@@ -59,12 +59,12 @@ internal extension BottomSheetView {
             height: self.bottomSheetPosition.isDynamic && self.translation == 0 ? nil : self.height(with: geometry),
             alignment: self.isIPadFloatingOrMac ? .bottom : .top
         )
-        // Clip BottomSheet for transition to work correctly for iPad and Mac
-        .clipped()
         // BottomSheet background
         .background(
             self.bottomSheetBackground(with: geometry)
         )
+        // Clip BottomSheet for transition to work correctly for iPad and Mac
+        .clipped()
         // On iPad floating and Mac the BottomSheet has a padding
         .padding(
             self.isIPadFloatingOrMac ? 10 : 0
