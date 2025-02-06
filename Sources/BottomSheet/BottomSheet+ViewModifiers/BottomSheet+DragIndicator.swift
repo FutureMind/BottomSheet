@@ -53,4 +53,26 @@ public extension BottomSheet {
         self.configuration.dragIndicatorAction = action
         return self
     }
+    
+    /// Changes the top padding of the drag indicator.
+    ///
+    /// - Parameters:
+    ///   - padding: The padding value.
+    ///
+    /// - Returns: A view with a modified top padding drag indicator.
+    func dragIndicatorTopPadding(_ padding: Double) -> BottomSheet {
+        self.configuration.dragIndicatorTopPadding = padding
+        return self
+    }
+    
+    /// Changes the bottom padding of the drag indicator.
+    ///
+    /// - Parameters:
+    ///   - padding: The padding value.
+    ///
+    /// - Returns: A view with a modified bottom padding drag indicator.
+    func dragIndicatorBottomPadding(_ padding: Double) -> BottomSheet {
+        self.configuration.dragIndicatorBottomPadding = padding
+        return self
+    }
 }

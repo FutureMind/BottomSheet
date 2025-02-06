@@ -36,17 +36,12 @@ internal extension BottomSheetView {
             alignment: .center,
             spacing: 0
         ) {
-            // Drag indicator on the top (iPhone and iPad not floating)
-            if self.configuration.isResizable && self.configuration.isDragIndicatorShown && !self.isIPadFloatingOrMac {
-                self.dragIndicator( with: geometry)
-            }
-            
-            // The header an main content
-            self.bottomSheetContent(with: geometry)
-            
-            // Drag indicator on the bottom (iPad floating and Mac)
-            if self.configuration.isResizable && self.configuration.isDragIndicatorShown && self.isIPadFloatingOrMac {
-                self.dragIndicator(with: geometry)
+            if self.configuration.isExpandend {
+                ZStack(alignment: self.isIPadFloatingOrMac ? .bottom : .top) {
+                    wrapIfNeeded(with: geometry)
+                }
+            } else {
+                wrapIfNeeded(with: geometry)
             }
         }
         // Set the height and width to its calculated values
@@ -80,6 +75,25 @@ internal extension BottomSheetView {
         ))
     }
     
+    @ViewBuilder
+    private func wrapIfNeeded(with geometry: GeometryProxy) -> some View {
+        // Drag indicator on the top (iPhone and iPad not floating)
+        if self.configuration.isResizable && self.configuration.isDragIndicatorShown && !self.isIPadFloatingOrMac {
+            self.dragIndicator( with: geometry)
+                .zIndex(1)
+        }
+        
+        // The header an main content
+        self.bottomSheetContent(with: geometry)
+            .zIndex(0)
+        
+        // Drag indicator on the bottom (iPad floating and Mac)
+        if self.configuration.isResizable && self.configuration.isDragIndicatorShown && self.isIPadFloatingOrMac {
+            self.dragIndicator(with: geometry)
+                .zIndex(1)
+        }
+    }
+    
     func dragIndicator(with geometry: GeometryProxy) -> some View {
         Button(
             action: {
@@ -95,11 +109,11 @@ internal extension BottomSheetView {
                     )
                     .padding(
                         .top,
-                        7.5
+                        self.configuration.dragIndicatorTopPadding
                     )
                     .padding(
                         .bottom,
-                        7.5
+                        self.configuration.dragIndicatorBottomPadding
                     )
                 // Make the drag indicator drag-able
                     .gesture(
